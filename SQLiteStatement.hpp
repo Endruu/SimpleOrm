@@ -18,6 +18,7 @@ public:
     bool readNextRow() override;
 
     bool getValue(size_t idx, std::string& out) override;
+	bool getValue(size_t idx, int64_t& out) override;
 
 private:
     sqlite3_stmt * stmt = nullptr;

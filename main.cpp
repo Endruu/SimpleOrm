@@ -13,7 +13,7 @@ IConnection& operator>>(IConnection& conn, std::vector<Example>& exs)
     {
         Example ex;
 
-        //stmt->getValue(0, ex.ExInt);
+        stmt->getValue(0, ex.ExInt);
         stmt->getValue(1, ex.ExString);
 
         exs.push_back(std::move(ex));
@@ -40,7 +40,7 @@ int main()
 
     for(const auto& ex : rows)
     {
-        std::cout << "Example: " << ex.ExString << '\n';
+        std::cout << "Example: " << ex.ExInt  << ' ' << ex.ExString << '\n';
     }
 
     }

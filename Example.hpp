@@ -4,6 +4,6 @@
 
 struct Example
 {
-    int ExInt = 0;
+    int64_t ExInt = 0;
     std::string ExString;
 };

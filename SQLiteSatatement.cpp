@@ -39,3 +39,18 @@ bool SQLiteStatement::getValue(size_t idx, std::string& out)
 
 	return false;
 }
+
+bool SQLiteStatement::getValue(size_t idx, int64_t& out)
+{
+	if (sqlite3_column_count(stmt) > idx)
+	{
+		/*if (sqlite3_column_type(stmt, idx) == SQLITE_NULL)
+		{
+			throw std::runtime_error("SQLITE_NULL");
+		}*/
+		out = sqlite3_column_int64(stmt, idx);
+		return true;
+	}
+
+	return false;
+}

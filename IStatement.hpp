@@ -9,5 +9,6 @@ public:
 
     virtual bool readNextRow() = 0;
 
-    virtual bool getValue(size_t idx, std::string& out) = 0;
+	virtual bool getValue(size_t idx, std::string& out) = 0;
+	virtual bool getValue(size_t idx, int64_t& out) = 0;
 };
