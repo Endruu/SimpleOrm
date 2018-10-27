@@ -4,7 +4,7 @@
 
 #include <memory>
 
-struct SQLiteConnection;
+class SQLiteConnection;
 
 struct sqlite3_stmt;
 struct sqlite3;
@@ -16,6 +16,8 @@ public:
     ~SQLiteStatement() override;
 
     bool readNextRow() override;
+
+    bool getValue(size_t idx, std::string& out) override;
 
 private:
     sqlite3_stmt * stmt = nullptr;

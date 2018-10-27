@@ -1,1 +1,13 @@
 *.o
+/.vs
+/.vscode
+/Debug
+/sqlite
+/x64/Debug
+/SimpleOrm.vcxproj.user
+/SimpleOrm.vcxproj.filters
+/SimpleOrm.vcxproj
+/SimpleOrm.sln
+/test_db.db3
+/test_db.db
+/test.exe
