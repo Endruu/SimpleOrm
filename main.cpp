@@ -13,8 +13,12 @@ IConnection& operator>>(IConnection& conn, std::vector<Example>& exs)
     {
         Example ex;
 
-        stmt->getValue(0, ex.ExInt);
-        stmt->getValue(1, ex.ExString);
+        //stmt->getValue(0, ex.ExInt);
+        //stmt->getValue(1, ex.ExString);
+
+		//StatementExtractor(*stmt) >> ex.ExInt >> ex.ExString;
+
+		*stmt >> ex.ExInt >> ex.ExString;
 
         exs.push_back(std::move(ex));
     }
