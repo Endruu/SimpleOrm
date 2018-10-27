@@ -16,7 +16,7 @@ public:
     ~SQLiteStatement() override;
 
 	size_t numberOfReadColumns() override;
-	bool columnIsNull(size_t idx) override;
+	bool _columnIsNull(size_t idx) override;
 
 private:
 

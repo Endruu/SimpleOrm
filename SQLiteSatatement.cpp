@@ -30,7 +30,7 @@ size_t SQLiteStatement::numberOfReadColumns()
 	return sqlite3_column_count(stmt);
 }
 
-bool SQLiteStatement::columnIsNull(size_t idx)
+bool SQLiteStatement::_columnIsNull(size_t idx)
 {
 	return (sqlite3_column_type(stmt, idx) == SQLITE_NULL);
 }
