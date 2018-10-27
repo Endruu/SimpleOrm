@@ -15,13 +15,12 @@ public:
     SQLiteStatement(std::shared_ptr<sqlite3> connection, const char* query);
     ~SQLiteStatement() override;
 
-    bool readNextRow() override;
-
-	size_t getNumberOfColumns() override;
+	size_t numberOfReadColumns() override;
 	bool columnIsNull(size_t idx) override;
 
 private:
 
+    bool _readNextRow() override;
     void _getValue(size_t idx, std::string& out) override;
 	void _getValue(size_t idx, int64_t& out) override;
 

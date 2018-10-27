@@ -15,7 +15,7 @@ SQLiteStatement::~SQLiteStatement()
 	sqlite3_finalize(stmt);
 }
 
-bool SQLiteStatement::readNextRow()
+bool SQLiteStatement::_readNextRow()
 {
 	if (!done && sqlite3_step(stmt) != SQLITE_ROW)
 	{
@@ -25,7 +25,7 @@ bool SQLiteStatement::readNextRow()
 	return !done;
 }
 
-size_t SQLiteStatement::getNumberOfColumns()
+size_t SQLiteStatement::numberOfReadColumns()
 {
 	return sqlite3_column_count(stmt);
 }
