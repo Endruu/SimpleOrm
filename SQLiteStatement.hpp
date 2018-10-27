@@ -17,10 +17,14 @@ public:
 
     bool readNextRow() override;
 
-    bool getValue(size_t idx, std::string& out) override;
-	bool getValue(size_t idx, int64_t& out) override;
+	size_t getNumberOfColumns() override;
+	bool columnIsNull(size_t idx) override;
 
 private:
+
+    void _getValue(size_t idx, std::string& out) override;
+	void _getValue(size_t idx, int64_t& out) override;
+
     sqlite3_stmt * stmt = nullptr;
     std::shared_ptr<sqlite3> connection;
     bool done = false;

@@ -12,45 +12,39 @@ SQLiteStatement::SQLiteStatement(std::shared_ptr<sqlite3> conn, const char *quer
 
 SQLiteStatement::~SQLiteStatement()
 {
-    sqlite3_finalize(stmt);
+	sqlite3_finalize(stmt);
 }
 
 bool SQLiteStatement::readNextRow()
 {
-    if (!done && sqlite3_step(stmt) != SQLITE_ROW)
-    {
-        done = true;
-    }
-
-    return !done;
-}
-
-bool SQLiteStatement::getValue(size_t idx, std::string& out)
-{
-	if (sqlite3_column_count(stmt) > idx)
+	if (!done && sqlite3_step(stmt) != SQLITE_ROW)
 	{
-		auto str = reinterpret_cast<const char*>(sqlite3_column_text(stmt, idx));
-		if (str)
-		{
-			out.assign(str);
-		}
-		return true;
+		done = true;
 	}
 
-	return false;
+	return !done;
 }
 
-bool SQLiteStatement::getValue(size_t idx, int64_t& out)
+size_t SQLiteStatement::getNumberOfColumns()
 {
-	if (sqlite3_column_count(stmt) > idx)
-	{
-		/*if (sqlite3_column_type(stmt, idx) == SQLITE_NULL)
-		{
-			throw std::runtime_error("SQLITE_NULL");
-		}*/
-		out = sqlite3_column_int64(stmt, idx);
-		return true;
-	}
+	return sqlite3_column_count(stmt);
+}
 
-	return false;
+bool SQLiteStatement::columnIsNull(size_t idx)
+{
+	return (sqlite3_column_type(stmt, idx) == SQLITE_NULL);
+}
+
+void SQLiteStatement::_getValue(size_t idx, std::string& out)
+{
+	auto str = reinterpret_cast<const char*>(sqlite3_column_text(stmt, idx));
+	if (str)
+	{
+		out.assign(str);
+	}
+}
+
+void SQLiteStatement::_getValue(size_t idx, int64_t& out)
+{
+	out = sqlite3_column_int64(stmt, idx);
 }

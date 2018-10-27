@@ -9,8 +9,15 @@ public:
 
     virtual bool readNextRow() = 0;
 
-	virtual bool getValue(size_t idx, std::string& out) = 0;
-	virtual bool getValue(size_t idx, int64_t& out) = 0;
+	void getValue(size_t idx, std::string& out);
+	void getValue(size_t idx, int64_t& out);
+
+	virtual size_t getNumberOfColumns() = 0;
+	virtual bool columnIsNull(size_t idx) = 0;
+
+private:
+	virtual void _getValue(size_t idx, std::string& out) = 0;
+	virtual void _getValue(size_t idx, int64_t& out) = 0;
 };
 
 class StatementExtractor
