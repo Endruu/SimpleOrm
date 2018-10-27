@@ -1,4 +1,4 @@
-#include "SQLiteConnection.hpp"
+#include "SQLite/SQLiteConnection.hpp"
 
 #include "Example.hpp"
 
