@@ -9,7 +9,7 @@ class SQLiteConnection;
 struct sqlite3_stmt;
 struct sqlite3;
 
-class SQLiteStatement : public ISatement
+class SQLiteStatement : public IStatement
 {
 public:
     SQLiteStatement(std::shared_ptr<sqlite3> connection, const char* query);

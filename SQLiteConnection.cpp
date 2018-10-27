@@ -22,7 +22,7 @@ SQLiteConnection::SQLiteConnection(const char *file_name)
 
 }
 
-std::unique_ptr<ISatement> SQLiteConnection::query(const char * query_str)
+std::unique_ptr<IStatement> SQLiteConnection::query(const char * query_str)
 {
     return std::make_unique<SQLiteStatement>(connection, query_str);
 }

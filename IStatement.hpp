@@ -2,10 +2,10 @@
 
 #include <string>
 
-class ISatement
+class IStatement
 {
 public:
-    virtual ~ISatement() {}
+    virtual ~IStatement() {}
 
     virtual bool readNextRow() = 0;
 
@@ -16,7 +16,7 @@ public:
 class StatementExtractor
 {
 public:
-	StatementExtractor(ISatement& statement) : statement(statement) {}
+	StatementExtractor(IStatement& statement) : statement(statement) {}
 
 	template<typename T>
 	friend StatementExtractor& operator>>(StatementExtractor& extractor, T& value)
@@ -27,12 +27,12 @@ public:
 	}
 
 private:
-	ISatement& statement;
+	IStatement& statement;
 	size_t idx = 0;
 };
 
 template<typename T>
-StatementExtractor operator>>(ISatement& statement, T& value)
+StatementExtractor operator>>(IStatement& statement, T& value)
 {
 	return StatementExtractor(statement) >> value;
 }
