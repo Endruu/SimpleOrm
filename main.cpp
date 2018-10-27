@@ -9,33 +9,6 @@
 #include <deque>
 #include <list>
 
-IConnection& operator>>(IConnection& conn, std::vector<Example>& exs)
-{
-    auto stmt = conn.query("SELECT ex_int, ex_text FROM ex_table");
-
-    while (stmt->readNextRow())
-    {
-        Example ex;
-
-        //stmt->getValue(0, ex.ExInt);
-        //stmt->getValue(1, ex.ExString);
-
-		//StatementExtractor(*stmt) >> ex.ExInt >> ex.ExString;
-
-		*stmt >> ex.ExInt >> ex.ExString;
-
-        exs.push_back(std::move(ex));
-    }
-
-    return conn;
-}
-
-template<typename T>
-struct Loadable
-{
-
-	T load(StatementExtractor& stmt);
-};
 
 auto& extract(StatementExtractor& ext, Example& ex) { ext >> ex.ExInt >> ex.ExString; return ex; }
 
@@ -43,20 +16,6 @@ const char* queryString(const Example&) { return "SELECT ex_int, ex_text FROM ex
 
 template<class OutputIt>
 void load(IConnection& conn, OutputIt first)
-{
-	auto stmt = conn.query("SELECT ex_int, ex_text FROM ex_table");
-
-	while (stmt->readNextRow())
-	{
-		//typename std::iterator_traits<OutputIt>::value_type ex;
-		typename OutputIt::container_type::value_type ex;
-		*stmt >> ex.ExInt >> ex.ExString;
-		*first++ = ex;
-	}
-}
-
-template<class OutputIt>
-void load2(IConnection& conn, OutputIt first)
 {
 	typename OutputIt::container_type::value_type ex;
 
@@ -78,33 +37,17 @@ auto load(IConnection& conn)
 
 int main()
 {
-    // const auto db = SqliteDb("db_path") ;
-    // const auto rows = loadRows<Example>(db);
 
     std::cout << "BEGIN!" << std::endl;
-
 
     try
     {
 
     std::unique_ptr<IConnection> conn = std::make_unique<SQLiteConnection>(R"(E:\MyPlayground\Cpp\SimpleOrm\test_db.db)");
 
-    std::vector<Example> rows1;
+    std::vector<Example> rows2;
 	
-
-    *conn >> rows1;
-
-    for(const auto& ex : rows1)
-    {
-        std::cout << "Example: " << ex.ExInt  << ' ' << ex.ExString << '\n';
-    }
-
-	std::deque<Example> rows2;
-
-	//load(*conn, std::front_inserter(rows2));
-	load2(*conn, std::front_inserter(rows2));
-
-	//decltype(*std::front_inserter(rows2)) a;
+	load(*conn, std::back_inserter(rows2));
 
 	for (const auto& ex : rows2)
 	{
