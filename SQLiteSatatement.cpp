@@ -1,5 +1,3 @@
-#pragma once
-
 #include "SQLiteStatement.hpp"
 
 #include <sqlite3.h>

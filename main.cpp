@@ -3,11 +3,17 @@
 #include "Example.hpp"
 
 #include <queue>
+#include <iostream>
 
 int main()
 {
     // const auto db = SqliteDb("db_path") ;
     // const auto rows = loadRows<Example>(db);
+
+    std::cout << "BEGIN!" << std::endl;
+
+    try
+    {
 
     std::unique_ptr<IConnection> conn = std::make_unique<SQLiteConnection>("...");
 
@@ -24,4 +30,12 @@ int main()
 
         rows.push(std::move(ex));
     }
+
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << "Exception: " << e.what() << std::endl;
+    }
+
+    std::cout << "TADA!" << std::endl;
 }
