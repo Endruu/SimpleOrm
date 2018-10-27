@@ -48,3 +48,8 @@ void SQLiteStatement::_getValue(size_t idx, int64_t& out)
 {
 	out = sqlite3_column_int64(stmt, idx);
 }
+
+std::string SQLiteStatement::_columnName(size_t idx)
+{
+	return sqlite3_column_name(stmt, idx);
+}

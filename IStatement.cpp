@@ -2,12 +2,12 @@
 
 std::string location(IStatement& stmt, size_t idx)
 {
-	return "(Row:" + std::to_string(stmt.numberOfReadRows()) + " , Column:" + std::to_string(idx) + ")";
+	return "(Row:" + std::to_string(stmt.numberOfReadRows()) + " , Col:" + std::to_string(idx) + ")";
 }
 
 std::string locationAndName(IStatement& stmt, size_t idx)
 {
-	return "(Row:" + std::to_string(stmt.numberOfReadRows()) + " , ColumnIdx:" + std::to_string(idx) + ")";
+	return "(Row:" + std::to_string(stmt.numberOfReadRows()) + " , ColIdx:" + std::to_string(idx) + ", ColName:" + stmt.columnName(idx) + ")";
 }
 
 void checkIdx(IStatement& stmt, size_t idx)
@@ -51,4 +51,10 @@ bool IStatement::columnIsNull(size_t idx)
 	checkIdx(*this, idx);
 
 	return _columnIsNull(idx);
+}
+
+std::string IStatement::columnName(size_t idx)
+{
+	checkIdx(*this, idx);
+	return _columnName(idx);
 }

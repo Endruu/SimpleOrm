@@ -23,6 +23,7 @@ private:
     bool _readNextRow() override;
     void _getValue(size_t idx, std::string& out) override;
 	void _getValue(size_t idx, int64_t& out) override;
+	std::string _columnName(size_t idx) override;
 
     sqlite3_stmt * stmt = nullptr;
     std::shared_ptr<sqlite3> connection;

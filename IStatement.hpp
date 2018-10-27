@@ -14,6 +14,7 @@ public:
 
 	virtual size_t numberOfReadColumns() = 0;
 	bool columnIsNull(size_t idx);
+	std::string columnName(size_t idx);
 
 	size_t numberOfReadRows() const { return _idxOfActualRow;  }
 
@@ -22,6 +23,7 @@ private:
 	virtual void _getValue(size_t idx, std::string& out) = 0;
 	virtual void _getValue(size_t idx, int64_t& out) = 0;
 	virtual bool _columnIsNull(size_t idx) = 0;
+	virtual std::string _columnName(size_t idx) = 0;
 
 	size_t _idxOfActualRow = 0;
 };
